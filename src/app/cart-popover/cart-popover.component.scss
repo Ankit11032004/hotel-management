@@ -1,0 +1,28 @@
+ion-toolbar {
+  --background: linear-gradient(135deg, #3880ff, #4cd964);
+  --color: white;
+}
+
+ion-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: bold;
+}
+
+ion-item {
+  margin: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-thumbnail img {
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+ion-button {
+  margin: 12px;
+  --border-radius: 12px;
+}

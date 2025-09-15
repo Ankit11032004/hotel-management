@@ -1,20 +1,111 @@
 <ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Hotel Management</ion-title>
+    <ion-buttons slot="end">
+     <ion-button (click)="openCartPopover($event)">🛒
+        <ion-badge *ngIf="bookedHotels.length > 0" color="danger">
+          {{ bookedHotels.length }}
+        </ion-badge>
+      </ion-button>
+      <ion-button routerLink="/login" color="secondary" fill="solid">
+        <ion-icon name="log-out-outline"></ion-icon>
+        LOGOUT
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-searchbar placeholder="Search hotels..." (ionInput)="onSearchChange($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <app-background-bubbles></app-background-bubbles>
+
+  <!-- Welcome Section -->
+  <div class="welcome">
+    <h2>Welcome to the Hotel Dashboard</h2>
+    <p>Select an option below:</p>
   </div>
+
+  <!-- Intro Description Section -->
+  
+
+  <!-- Story Circle Section -->
+  <div class="story-circle-container">
+    <div class="story-circle" *ngFor="let hotel of filteredHotels">
+      <img [src]="hotel.img" alt="{{ hotel.name }}" />
+      <div class="story-name">{{ hotel.name }}</div>
+    </div>
+  </div>
+
+  <!-- 🔥 Hotel Cards Section -->
+  <div class="hotel-cards">
+    <ion-card *ngFor="let hotel of filteredHotels">
+      <img [src]="hotel.img" alt="hotel image" />
+
+      <ion-card-header>
+        <ion-card-title>{{ hotel.name }}</ion-card-title>
+        <ion-card-subtitle>{{ hotel.place }}</ion-card-subtitle>
+        <ion-card-subtitle>Rating: {{ hotel.rating }} ⭐</ion-card-subtitle>
+        
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ hotel.description }}</p>
+      </ion-card-content>
+
+      <ion-card-content>
+        <p>Price: <strong>₹{{ hotel.price }}</strong></p>
+
+        <!-- ⭐ Star Rating -->
+        <div class="rating">
+          <ion-icon
+            *ngFor="let star of [1,2,3,4,5]"
+            [name]="star <= hotel.rating ? 'star' : 'star-outline'">
+          </ion-icon>
+        </div>
+
+        <!-- Book Button -->
+        <ion-button (click)="bookHotel(hotel)" color="success" size="small" fill="solid">Book</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <ion-button expand="block" color="primary" routerLink="/rooms">
+    MANAGE ROOMS
+  </ion-button>
+
+  <ion-button expand="block" color="secondary" routerLink="/bookings">
+    Bookings
+  </ion-button>
+  <div class="intro-section">
+    <ion-card class="intro-card">
+      <ion-card-content>
+        <h3>About Our Hotel Management System</h3>
+        <p>Discover the finest luxury hotels across India with our comprehensive hotel management platform. Whether you're planning a business trip, family vacation, or special occasion, we connect you with top-rated accommodations that offer unparalleled comfort, exceptional service, and memorable experiences.</p>
+        <p>Our curated selection includes iconic landmarks, modern resorts, and boutique properties, each chosen for their unique charm and commitment to excellence. Browse through our featured hotels, compare amenities, and book your perfect stay with ease.</p>
+        <div class="features">
+          <ion-chip color="primary">
+            <ion-icon name="bed-outline"></ion-icon>
+            <ion-label>Luxury Accommodations</ion-label>
+          </ion-chip>
+          <ion-chip color="secondary">
+            <ion-icon name="restaurant-outline"></ion-icon>
+            <ion-label>Fine Dining</ion-label>
+          </ion-chip>
+          <ion-chip color="tertiary">
+            <ion-icon name="fitness-outline"></ion-icon>
+            <ion-label>Wellness & Spa</ion-label>
+          </ion-chip>
+          <ion-chip color="success">
+            <ion-icon name="business-outline"></ion-icon>
+            <ion-label>Business Services</ion-label>
+          </ion-chip>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <app-footer></app-footer>
 </ion-content>

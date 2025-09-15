@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Available Rooms</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Rooms</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card *ngFor="let room of rooms">
+    <ion-card-header>
+      <ion-card-title>{{ room.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Price: ₹{{ room.price }}/night</p>
+      <p *ngIf="room.available; else notAvailable">Status: ✅ Available</p>
+      <ng-template #notAvailable>
+        <p>Status: ❌ Not Available</p>
+      </ng-template>
+      <ion-button 
+        expand="block" 
+        [disabled]="!room.available" 
+        (click)="bookRoom(room.id)">
+        Book Now
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

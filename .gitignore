@@ -9,6 +9,9 @@
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
 
+node_modules/
+.env
+
 *.log
 log.txt
 

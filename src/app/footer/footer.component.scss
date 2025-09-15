@@ -1,0 +1,80 @@
+.custom-footer {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px 0;
+
+  ion-toolbar {
+    --background: transparent;
+    --color: white;
+  }
+
+  .footer-section {
+    text-align: center;
+    padding: 10px;
+
+    h4 {
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #f0f0f0;
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    ion-button {
+      --color: white;
+      font-size: 14px;
+      text-transform: none;
+
+      &:hover {
+        --color: #ffd700; // Gold on hover
+      }
+    }
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    ion-button {
+      --padding-start: 10px;
+      --padding-end: 10px;
+
+      ion-icon {
+        font-size: 24px;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s;
+      }
+    }
+  }
+
+  .footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+
+    ion-icon {
+      font-size: 28px;
+      color: white;
+
+      &:hover {
+        color: #ffd700;
+        transform: scale(1.2);
+        transition: all 0.2s;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-section {
+      margin-bottom: 20px;
+    }
+  }
+}

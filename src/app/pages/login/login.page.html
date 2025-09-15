@@ -1,0 +1,73 @@
+
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    
+    <div class="ion-text-center ion-padding-vertical">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/515205059.jpg?k=3b29cbb7484dd64d4b968e1ca23f9e036269f2eebfa6cf4006ca7ce18c1c9f19&o=&hp=1" alt="App Logo" width="80" />
+      <h2>Welcome</h2>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <ion-card>
+        <ion-card-content>
+          
+          <ion-item lines="full">
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+            <ion-input
+              label="Email"
+              labelPlacement="floating"
+              formControlName="email"
+              type="email"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngIf="email?.invalid && email?.touched" class="error-message">
+            Please enter a valid email.
+          </div>
+
+          <ion-item lines="full">
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+            <ion-input
+              label="Password"
+              labelPlacement="floating"
+              formControlName="password"
+              [type]="showPassword ? 'text' : 'password'"
+              required
+            ></ion-input>
+            <ion-icon
+              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
+              slot="end"
+              (click)="togglePassword()"
+            ></ion-icon>
+          </ion-item>
+          <div *ngIf="password?.invalid && password?.touched" class="error-message">
+            Password is required.
+          </div>
+
+          <ion-button 
+            type="submit" 
+            expand="block" 
+            class="ion-margin-top"
+            [disabled]="loginForm.invalid">
+            Login
+          </ion-button>
+
+        </ion-card-content>
+      </ion-card>
+    </form>
+
+    <div class="ion-text-center ion-margin-top">
+      <ion-text color="medium">
+        <a href="#">Forgot Password?</a>
+      </ion-text>
+    </div>
+
+    <div class="ion-text-center ion-margin-top">
+      <ion-text color="black">
+        Don't have an account? <a routerLink="/register">Sign Up</a>
+      </ion-text>
+    </div>
+
+  </div>
+</ion-content>

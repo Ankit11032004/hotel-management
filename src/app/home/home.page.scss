@@ -1,27 +1,366 @@
-#container {
+// Base styles
+
+ion-header ion-toolbar:first-of-type {
+  --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+ion-header ion-toolbar ion-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+ion-header ion-toolbar ion-buttons ion-button {
+  --border-radius: 20px;
+  margin: 0 4px;
+  transition: transform 0.2s ease;
+}
+
+ion-header ion-toolbar ion-buttons ion-button:hover {
+  transform: scale(1.1);
+}
+
+ion-header ion-toolbar ion-buttons ion-button[color="light"] {
+  --background: rgba(255, 255, 255, 0.2);
+  --color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+.story-circle-container {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin: 20px 0;
+}
+
+.story-circle {
+  flex: 0 0 auto;
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  min-width: 80px;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.story-circle img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid #3880ff;
+  object-fit: cover;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.story-name {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #333;
+  font-weight: 500;
+}
 
-  color: #8c8c8c;
+.intro-section {
+  margin: 20px 0;
+  padding: 0 16px;
+}
 
+.intro-card {
   margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#container a {
-  text-decoration: none;
+.intro-card h3 {
+  color: #3880ff;
+  margin-bottom: 16px;
+}
+
+.intro-card p {
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.features ion-chip {
+  flex: 1 1 auto;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.welcome {
+  text-align: center;
+  margin: 20px 0;
+  padding: 0 16px;
+}
+
+.welcome h2 {
+  color: #3880ff;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.welcome p {
+  color: #666;
+  font-size: 16px;
+}
+
+.hotel-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 20px 0;
+  padding: 0 16px;
+}
+
+.hotel-cards ion-card {
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.hotel-cards ion-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hotel-cards ion-card img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.hotel-cards ion-card-header {
+  padding: 16px;
+}
+
+.hotel-cards ion-card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.hotel-cards ion-card-subtitle {
+  color: #666;
+}
+
+.hotel-cards ion-card-content {
+  padding: 16px;
+}
+
+.rating {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.rating ion-icon {
+  color: #ffd700;
+}
+
+ion-button {
+  margin: 10px 0;
+  --border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+ion-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.booked-section {
+  margin: 20px 0;
+  padding: 0 16px;
+}
+
+.booked-section ion-card {
+  margin: 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.booked-hotel {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.booked-hotel:last-child {
+  border-bottom: none;
+}
+
+// Responsive styles for small screens
+@media (max-width: 480px) {
+  .story-circle-container {
+    gap: 12px;
+    padding: 8px 0;
+  }
+
+  .story-circle {
+    min-width: 70px;
+  }
+
+  .story-circle img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .story-name {
+    font-size: 11px;
+  }
+
+  .welcome {
+    margin: 16px 0;
+    padding: 0 8px;
+  }
+
+  .welcome h2 {
+    font-size: 1.3rem;
+  }
+
+  .welcome p {
+    font-size: 14px;
+  }
+
+  .intro-section {
+    margin: 16px 0;
+    padding: 0 8px;
+  }
+
+  .intro-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .intro-card p {
+    font-size: 14px;
+  }
+
+  .features {
+    gap: 6px;
+  }
+
+  .features ion-chip {
+    min-width: 100px;
+  }
+
+  .hotel-cards {
+    gap: 12px;
+    margin: 16px 0;
+    padding: 0 8px;
+  }
+
+  .hotel-cards ion-card-title {
+    font-size: 16px;
+  }
+
+  .booked-section {
+    margin: 16px 0;
+    padding: 0 8px;
+  }
+
+  ion-button {
+    margin: 8px 0;
+  }
+}
+
+// Responsive styles
+@media (min-width: 768px) {
+  // Tablet and up
+  .story-circle-container {
+    gap: 20px;
+    padding: 15px 0;
+  }
+
+  .story-circle {
+    min-width: 100px;
+  }
+
+  .story-circle img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .story-name {
+    font-size: 14px;
+  }
+
+  .welcome h2 {
+    font-size: 2rem;
+  }
+
+  .welcome p {
+    font-size: 18px;
+  }
+
+  .hotel-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .hotel-cards ion-card-title {
+    font-size: 20px;
+  }
+
+  .booked-section {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  // Desktop
+  .story-circle-container {
+    gap: 24px;
+    padding: 20px 0;
+  }
+
+  .story-circle {
+    min-width: 120px;
+  }
+
+  .story-circle img {
+    width: 110px;
+    height: 110px;
+  }
+
+  .story-name {
+    font-size: 16px;
+  }
+
+  .welcome {
+    margin: 30px 0;
+  }
+
+  .welcome h2 {
+    font-size: 2.5rem;
+  }
+
+  .welcome p {
+    font-size: 20px;
+  }
+
+  .hotel-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 0 24px;
+  }
+
+  .hotel-cards ion-card-title {
+    font-size: 22px;
+  }
+
+  .booked-section {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 1200px) {
+  // Large desktop
+  .hotel-cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
