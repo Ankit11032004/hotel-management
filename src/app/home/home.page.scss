@@ -1,9 +1,73 @@
 // Base styles
 
 ion-header ion-toolbar:first-of-type {
-  --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+  --background: linear-gradient(135deg, #007bff, #0056b3);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// Hero Section
+.hero-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// Mobile responsiveness for hero video
+@media (max-width: 768px) {
+  .hero-section {
+    height: 60vh; // Reduce height on mobile to show more content
+  }
+
+  .hero-video {
+    object-fit: contain; // Show full video on mobile, may have black bars
+  }
+
+  .hero-overlay {
+    padding: 10px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 123, 255, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-title {
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-search {
+  --background: rgba(255, 255, 255, 0.9);
+  --color: #333;
+  --placeholder-color: #666;
+  width: 100%;
+  max-width: 400px;
+  --border-radius: 25px;
 }
 
 ion-header ion-toolbar ion-title {
@@ -28,6 +92,43 @@ ion-header ion-toolbar ion-buttons ion-button[color="light"] {
   border: 1px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
 }
+// Category Section
+.category-section {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.category-card {
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 20px;
+  background: #e0f0ff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-card:hover, .category-card.active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #b3d9ff;
+}
+
+.category-card span:first-child {
+  font-size: 1.5rem;
+}
+
+.category-card span:last-child {
+  font-weight: 600;
+  color: #007bff;
+}
+
 .story-circle-container {
   display: flex;
   gap: 16px;
@@ -193,7 +294,6 @@ ion-button:hover {
   border-bottom: none;
 }
 
-// Responsive styles for small screens
 @media (max-width: 480px) {
   .story-circle-container {
     gap: 12px;
@@ -264,6 +364,17 @@ ion-button:hover {
 
   ion-button {
     margin: 8px 0;
+  }
+
+  .category-section {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  .category-card {
+    padding: 4px 6px;
+    font-size: 0.8rem;
   }
 }
 
