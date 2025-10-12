@@ -10,9 +10,9 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, CommonModule],
 })
 export class CartPopoverComponent {
-  @Input() bookedHotels: any[] = [];
+  @Input() cart: any[] = [];
 
   getTotal(): number {
-    return this.bookedHotels.reduce((sum, hotel) => sum + hotel.price, 0);
+    return this.cart.reduce((sum, hotel) => sum + hotel.price, 0);
   }
 }

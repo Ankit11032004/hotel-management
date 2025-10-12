@@ -1,0 +1,31 @@
+ion-card {
+  margin: 16px;
+  max-width: 100%;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-section, .cards-section {
+  padding: 16px;
+}
+
+@media (min-width: 769px) {
+  .dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  ion-card {
+    margin: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  ion-card {
+    margin: 8px;
+  }
+}

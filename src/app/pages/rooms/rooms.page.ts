@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
+import { BookingService } from '../../services/booking.service';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarOptions } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
 @Component({
   selector: 'app-rooms',
@@ -9,27 +13,49 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, Io
   styleUrls: ['./rooms.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar,
-    IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-    IonButton,
-    CommonModule, FormsModule
+    IonicModule,
+    CommonModule, FormsModule, FullCalendarModule
   ]
 })
 export class RoomsPage implements OnInit {
 
-  rooms = [
-    { id: 1, name: 'Deluxe Room', price: 2500, available: true },
-    { id: 2, name: 'Suite Room', price: 4500, available: false },
-    { id: 3, name: 'Standard Room', price: 1800, available: true }
-  ];
+  currentDateTime: string = '';
 
-  constructor() { }
+  calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin],
+    initialView: 'dayGridMonth',
+    events: []
+  };
 
-  ngOnInit() {}
+  constructor(private bookingService: BookingService) { }
 
-  bookRoom(roomId: number) {
-    alert(`Booking started for Room ID: ${roomId}`);
-    // later you can navigate to booking page or call an API
+  ngOnInit() {
+    this.updateDateTime();
+    setInterval(() => this.updateDateTime(), 1000); // Update every second
+    this.loadCalendarEvents();
+    this.bookingService.bookedHotels$.subscribe(() => {
+      this.loadCalendarEvents();
+    });
+  }
+
+  loadCalendarEvents() {
+    const bookings = this.bookingService.getBookedHotels();
+    this.calendarOptions.events = bookings.map(booking => ({
+      title: `${booking.hotel.name} (${booking.duration}h)`,
+      date: booking.date
+    }));
+  }
+
+  get bookedHotels(): any[] {
+    return this.bookingService.getBookedHotels();
+  }
+
+  updateDateTime() {
+    this.currentDateTime = new Date().toLocaleString();
+  }
+
+  removeBooking(hotelName: string) {
+    this.bookingService.removeBooking(hotelName);
   }
 
 }

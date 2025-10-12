@@ -1,10 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicModule, PopoverController } from '@ionic/angular';
+import { IonicModule, PopoverController, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { CartPopoverComponent } from '../cart-popover/cart-popover.component';
 import { BackgroundBubblesComponent } from '../background-bubbles/background-bubbles.component';
+import { BookingService } from '../services/booking.service';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -157,7 +158,6 @@ export class HomePage {
     },
   ];
 
-  bookedHotels: any[] = [];
   showBooked: boolean = false;
 
   slideOpts = {
@@ -171,8 +171,16 @@ export class HomePage {
   direction: 'horizontal'   // 👈 force horizontal layout
 };
 
-  constructor(private popoverController: PopoverController, private router: Router) {
+  constructor(private popoverController: PopoverController, private router: Router, private bookingService: BookingService, private alertController: AlertController) {
     this.filteredHotels = this.hotels;
+  }
+
+  get bookedHotels(): any[] {
+    return this.bookingService.getBookedHotels();
+  }
+
+  get cart(): any[] {
+    return this.bookingService.getCart();
   }
 
   filterByCategory(categoryId: string) {
@@ -211,10 +219,90 @@ export class HomePage {
     }
   }
 
-  bookHotel(hotel: any) {
-    if (!this.bookedHotels.find(h => h.name === hotel.name)) {
-      this.bookedHotels.push(hotel);
-    }
+  async bookHotel(hotel: any) {
+    const alert = await this.alertController.create({
+      header: 'Select Booking Date and Duration',
+      inputs: [
+        {
+          name: 'date',
+          type: 'date',
+          placeholder: 'Choose a date'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Book 12 hours',
+          handler: async (data) => {
+            if (data.date) {
+              this.bookingService.bookHotel(hotel, data.date, 12);
+              const successAlert = await this.alertController.create({
+                header: 'Booking Successful',
+                message: `You have successfully booked ${hotel.name} for ${data.date} with 12 hours.`,
+                buttons: ['OK']
+              });
+              await successAlert.present();
+            }
+          }
+        },
+        {
+          text: 'Book 24 hours',
+          handler: async (data) => {
+            if (data.date) {
+              this.bookingService.bookHotel(hotel, data.date, 24);
+              const successAlert = await this.alertController.create({
+                header: 'Booking Successful',
+                message: `You have successfully booked ${hotel.name} for ${data.date} with 24 hours.`,
+                buttons: ['OK']
+              });
+              await successAlert.present();
+            }
+          }
+        },
+        {
+          text: 'Book 36 hours',
+          handler: async (data) => {
+            if (data.date) {
+              this.bookingService.bookHotel(hotel, data.date, 36);
+              const successAlert = await this.alertController.create({
+                header: 'Booking Successful',
+                message: `You have successfully booked ${hotel.name} for ${data.date} with 36 hours.`,
+                buttons: ['OK']
+              });
+              await successAlert.present();
+            }
+          }
+        },
+        {
+          text: 'Book 48 hours',
+          handler: async (data) => {
+            if (data.date) {
+              this.bookingService.bookHotel(hotel, data.date, 48);
+              const successAlert = await this.alertController.create({
+                header: 'Booking Successful',
+                message: `You have successfully booked ${hotel.name} for ${data.date} with 48 hours.`,
+                buttons: ['OK']
+              });
+              await successAlert.present();
+            }
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async addToCart(hotel: any) {
+    this.bookingService.addToCart(hotel);
+    const alert = await this.alertController.create({
+      header: 'Added to Cart',
+      message: `${hotel.name} has been added to your cart.`,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   goToDetail(hotel: any) {
@@ -229,14 +317,14 @@ export class HomePage {
   }
 
   getTotal(): number {
-    return this.bookedHotels.reduce((sum, hotel) => sum + hotel.price, 0);
+    return this.bookingService.getBookedHotels().reduce((sum: number, booking: any) => sum + booking.hotel.price, 0);
   }
 
   async openCartPopover(event: any) {
     const popover = await this.popoverController.create({
       component: CartPopoverComponent,
       componentProps: {
-        bookedHotels: this.bookedHotels
+        cart: this.cart
       },
       event: event,
       translucent: true
@@ -246,5 +334,8 @@ export class HomePage {
 
   changeHeroBorder() {
     this.heroBorderStyle = '2px solid red';
+  }
+  changeSecondaryColor() {
+    this.heroBorderStyle = '2px solid blue';
   }
 }

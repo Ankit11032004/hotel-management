@@ -7,9 +7,9 @@
   </ion-toolbar>
 
   <ion-list>
-    <ion-item *ngFor="let hotel of bookedHotels">
+    <ion-item *ngFor="let hotel of cart">
       <ion-thumbnail slot="start">
-        <img [src]="hotel.img" alt="{{ hotel.name }}" />
+        <ion-img [src]="hotel.img" alt="{{ hotel.name }}" ></ion-img>
       </ion-thumbnail>
       <ion-label>
         <h3>{{ hotel.name }}</h3>
@@ -17,16 +17,16 @@
       </ion-label>
     </ion-item>
 
-    <ion-item *ngIf="bookedHotels.length === 0">
+    <ion-item *ngIf="cart.length === 0">
       <ion-label>Your cart is empty 🛒</ion-label>
     </ion-item>
   </ion-list>
 
-  <ion-item *ngIf="bookedHotels.length > 0">
+  <ion-item *ngIf="cart.length > 0">
     <ion-label><h3>Total: ₹{{ getTotal() }}</h3></ion-label>
   </ion-item>
 
-  <ion-button expand="block" color="success" *ngIf="bookedHotels.length > 0">
+  <ion-button expand="block" color="success" *ngIf="cart.length > 0">
     Proceed to Checkout
   </ion-button>
 </ion-content>

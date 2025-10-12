@@ -11,6 +11,8 @@
           "standalone": true
         }
       },
+  
+
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -149,3 +151,5 @@
     }
   }
 }
+
+

@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-icon name="bed-outline" size="large" color="light"></ion-icon>
+     <img src="assets/icon/hotel-final.png" alt="hotel logo" width="100" height="100">
     </ion-buttons>
     <ion-buttons slot="end">
-     <ion-button (click)="openCartPopover($event)">🛒
-        <ion-badge *ngIf="bookedHotels.length > 0" color="danger">
-          {{ bookedHotels.length }}
+      <ion-button (click)="openCartPopover($event)">🛒
+        <ion-badge *ngIf="cart.length > 0" color="danger">
+          {{ cart.length }}
         </ion-badge>
       </ion-button>
       <ion-button routerLink="/login" color="secondary" fill="solid">
@@ -34,6 +34,7 @@
   </div>
 
   <ion-button (click)="changeHeroBorder()" color="primary" fill="solid">Change Hero Border</ion-button>
+  <ion-button (click)="changeSecondaryColor()" color="secondary" fill="solid" > change secondary color</ion-button>
 
 
   <div class="welcome">
@@ -52,7 +53,7 @@
   <!-- Story Circle Section -->
   <div class="story-circle-container">
     <div class="story-circle" *ngFor="let hotel of filteredHotels">
-      <img [src]="hotel.img" alt="{{ hotel.name }}" />
+      <img [src]="hotel.img" alt="{{ hotel.name }}"/>
       <div class="story-name">{{ hotel.name }}</div>
     </div>
   </div>
@@ -60,7 +61,7 @@
  
   <div class="hotel-cards">
     <ion-card *ngFor="let hotel of filteredHotels" (click)="goToDetail(hotel)">
-      <img [src]="hotel.img" alt="hotel image" />
+      <img [src]="hotel.img" alt="hotel image"/>
 
       <ion-card-header>
         <ion-card-title>{{ hotel.name }}</ion-card-title>
@@ -87,13 +88,14 @@
 
         <!-- Book Button -->
         <ion-button (click)="bookHotel(hotel); $event.stopPropagation()" color="success" size="small" fill="solid">Book</ion-button>
+        <ion-button (click)="addToCart(hotel); $event.stopPropagation()" color="primary" size="small" fill="solid">Add to Cart</ion-button>
       </ion-card-content>
     </ion-card>
   </div>
 
   <!-- Navigation Buttons -->
   <ion-button expand="block" color="primary" routerLink="/rooms">
-    MANAGE ROOMS
+    VIEW MY BOOKINGS
   </ion-button>
 
   <ion-button expand="block" color="secondary" routerLink="/bookings">
