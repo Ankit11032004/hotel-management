@@ -31,4 +31,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/hotel-detail/hotel-detail.page').then((m) => m.HotelDetailPage),
   },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
 ];

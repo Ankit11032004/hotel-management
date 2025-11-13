@@ -1,0 +1,185 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="bar-chart-outline" slot="start"></ion-icon>
+      Dashboard
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding dashboard-content">
+  <ion-grid>
+    <!-- First Row: Total Booking and Revenue Overview -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="calendar-outline"></ion-icon>
+              Total Bookings
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ totalBookings }}</h2>
+            <p>Bookings this month</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="cash-outline"></ion-icon>
+              Revenue Overview
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>₹{{ totalRevenue.toLocaleString() }}</h2>
+            <p>Total revenue this month</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Second Row: Charts -->
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card class="chart-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="trending-up-outline"></ion-icon>
+              Monthly Revenue
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    type="bar">
+            </canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-card class="chart-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="analytics-outline"></ion-icon>
+              Bookings Trend
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas baseChart
+                    [data]="lineChartData"
+                    [options]="lineChartOptions"
+                    type="line">
+            </canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Third Row: Room Occupancy and New Bookings -->
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card class="chart-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="bed-outline"></ion-icon>
+              Room Occupancy
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <canvas baseChart
+                    [data]="pieChartData"
+                    [options]="pieChartOptions"
+                    type="pie">
+            </canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="add-circle-outline"></ion-icon>
+              New Bookings Today
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ newBookingsToday }}</h2>
+            <p>New bookings received today</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Fourth Row: Customer Feedback and Recent Activity -->
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="star-outline"></ion-icon>
+              Customer Feedback
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="rating-display">
+              <span class="rating-number">{{ averageRating }}</span>
+              <ion-icon name="star" color="warning"></ion-icon>
+            </div>
+            <p>Total Reviews: {{ totalReviews }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="time-outline"></ion-icon>
+              Recent Activity
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item *ngFor="let activity of recentActivities" lines="none">
+                <ion-icon name="ellipse" slot="start" [color]="activity.type === 'booking' ? 'success' : 'primary'"></ion-icon>
+                <ion-label>
+                  <h3>{{ activity.description }}</h3>
+                  <p>{{ activity.time }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Fifth Row: Staff Overview -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-card class="summary-card">
+          <ion-card-header>
+            <ion-card-title>
+              <ion-icon name="people-outline"></ion-icon>
+              Staff Overview
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="6">
+                <h3>Total Staff: {{ totalStaff }}</h3>
+              </ion-col>
+              <ion-col size="6">
+                <h3>Present Today: {{ staffPresent }}</h3>
+              </ion-col>
+            </ion-row>
+            <ion-progress-bar value="{{ staffPresent / totalStaff }}" color="success"></ion-progress-bar>
+            <p>Attendance Rate: {{ (staffPresent / totalStaff * 100).toFixed(1) }}%</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
